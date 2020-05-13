@@ -2,7 +2,9 @@
  *  trying out a couple of patterns from https://medium.com/javascript-in-plain-english/4-useful-javascript-design-patterns-you-should-know-b4e1404e3929
  */
 
-// Strategy pattern:
+/**
+ * Strategy pattern:
+ */
 const list = ['a', 'b'];
 const strategies = {
   checkRole: function (val) {
@@ -60,7 +62,10 @@ const compose = () => {
 const validationResult = compose();
 console.log('validation result: ', validationResult);
 
-// PubSub pattern
+/**
+ * PubSub pattern
+ */
+
 // eventEmitter and stuff
 class EventEmitter {
   constructor() {
@@ -87,7 +92,9 @@ eventEmitter.on('success', () => {
 
 eventEmitter.trigger('success');
 
-// Decorator pattern
+/**
+ * Decorator pattern
+ */
 class Write {
   constructor() {
     this.writeTurkish = () => {
