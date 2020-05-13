@@ -1,0 +1,28 @@
+{
+  "name": "patterns",
+  "version": "1.0.0",
+  "description": "patterns testing",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "eslint": {
+    "settings": {
+      "react": {
+        "pragma": "createElement"
+      }
+    }
+  },
+  "dependencies": {
+    "@bikeshaving/crank": "0.1.3",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "parcel-bundler": "^1.12.4"
+  },
+  "author": "Sadan",
+  "license": "ISC"
+}
