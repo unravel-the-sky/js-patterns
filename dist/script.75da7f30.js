@@ -123,7 +123,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /**
  *  trying out a couple of patterns from https://medium.com/javascript-in-plain-english/4-useful-javascript-design-patterns-you-should-know-b4e1404e3929
  */
-// Strategy pattern:
+
+/**
+ * Strategy pattern:
+ */
 var list = ['a', 'b'];
 var strategies = {
   checkRole: function checkRole(val) {
@@ -183,7 +186,10 @@ var compose = function compose() {
 };
 
 var validationResult = compose();
-console.log('validation result: ', validationResult); // PubSub pattern
+console.log('validation result: ', validationResult);
+/**
+ * PubSub pattern
+ */
 // eventEmitter and stuff
 
 var EventEmitter = function EventEmitter() {
@@ -214,7 +220,10 @@ var eventEmitter = new EventEmitter();
 eventEmitter.on('success', function () {
   console.log('success event happened!');
 });
-eventEmitter.trigger('success'); // Decorator pattern
+eventEmitter.trigger('success');
+/**
+ * Decorator pattern
+ */
 
 var Write = function Write() {
   _classCallCheck(this, Write);
@@ -303,6 +312,60 @@ var chainSelectAddress = new Chain(selectAddress);
 var chainSelectChecker = new Chain(selectChecker);
 chainApplyDevice.setNext(chainSelectAddress);
 chainApplyDevice.run(); // yields error tho, wtf..
+
+/**
+ * Reactivity
+ */
+
+var price = 5;
+var quantity = 2;
+var total = 0;
+var dep = new Set();
+var product = {
+  price: 5,
+  quantity: 2
+};
+var depsMap = new Map();
+
+var effect = function effect() {
+  total = price * quantity;
+};
+
+var track = function track(key) {
+  var dep = depsMap.get(key);
+  if (!dep) depsMap.set(key, dep = new Set());
+  dep.add(effect);
+};
+
+var trigger = function trigger(key) {
+  var dep = depsMap.get(key);
+
+  if (dep) {
+    dep.forEach(function (effect) {
+      return effect();
+    });
+  }
+};
+
+track('quantity');
+effect();
+var targetMap = new WeakMap();
+targetMap.set(product, 'example');
+console.log(targetMap.get(product));
+/**
+ * Proxy pattern
+ */
+
+var target = {
+  x: 10,
+  y: 20
+};
+var handler = {
+  get: function get(obj, prop) {
+    return 42;
+  }
+};
+target = new Proxy(target, handler);
 },{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -331,7 +394,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54114" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57015" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

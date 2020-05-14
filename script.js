@@ -65,7 +65,6 @@ console.log('validation result: ', validationResult);
 /**
  * PubSub pattern
  */
-
 // eventEmitter and stuff
 class EventEmitter {
   constructor() {
@@ -179,3 +178,49 @@ chainApplyDevice.setNext(chainSelectAddress);
 chainApplyDevice.run();
 
 // yields error tho, wtf..
+
+/**
+ * Reactivity
+ */
+let price = 5;
+let quantity = 2;
+let total = 0;
+
+let dep = new Set();
+let product = { price: 5, quantity: 2 };
+
+let depsMap = new Map();
+
+const effect = () => {
+  total = price * quantity;
+};
+const track = (key) => {
+  let dep = depsMap.get(key);
+  if (!dep) depsMap.set(key, (dep = new Set()));
+
+  dep.add(effect);
+};
+const trigger = (key) => {
+  const dep = depsMap.get(key);
+  if (dep) {
+    dep.forEach((effect) => effect());
+  }
+};
+
+track('quantity');
+effect();
+
+const targetMap = new WeakMap();
+targetMap.set(product, 'example');
+console.log(targetMap.get(product));
+
+/**
+ * Proxy pattern
+ */
+
+let target = { x: 10, y: 20 };
+let handler = {
+  get: (obj, prop) => 42,
+};
+
+target = new Proxy(target, handler);
